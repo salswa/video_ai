@@ -30,18 +30,20 @@ export const authOptions: NextAuthOptions = {
           if (!isValid) {
             throw new Error("Invalid Password!");
           }
+          /** Session is created based upon this returned data*/
           return {
             id: user._id.toString(),
             email: user.email,
           };
         } catch (error) {
-          console.error("Aut error", error);
+          console.error("Auth error", error);
           throw error;
         }
       },
     }),
   ],
   callbacks: {
+    /** Use callbacks if you want user id in jwt token or user in session */
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
